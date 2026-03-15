@@ -1,0 +1,55 @@
+@startuml PlantUML_Website
+!theme cerulean
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+skinparam packageStyle rectangle
+
+title PlantUML веб-серверінің компоненттік диаграммасы\n(Component Diagram)
+
+actor "Пайдаланушы" as User
+
+rectangle "PlantUML Web Server" <<system>> {
+    
+    package "Кіріс модулі" <<component>> {
+        rectangle "Код редакторы" as Editor <<component>>
+        rectangle "URL декодер" as Decode <<component>>
+    }
+    
+    package "Өңдеу модулі" <<component>> {
+        rectangle "PlantUML сервері" as Server <<component>>
+        rectangle "Синтаксис парсері" as Parser <<component>>
+        rectangle "Визуализация рендерері" as Renderer <<component>>
+    }
+    
+    package "Шығару модулі" <<component>> {
+        rectangle "PNG экспортер" as PNG <<component>>
+        rectangle "SVG экспортер" as SVG <<component>>
+        rectangle "ASCII Art экспортер" as ASCII <<component>>
+    }
+    
+    package "Конфигурация" <<component>> {
+        rectangle "Тема таңдау" as Theme <<component>>
+    }
+}
+
+cloud "PlantUML Web Editor" <<external>> {
+    rectangle "Кеңейтілген редактор" as WebEditor <<component>>
+}
+
+User --> Editor : UML диаграмма кодын енгізу
+User --> Decode : URL-дан кодын алу
+User --> Theme : Визуалдық теманы таңдау
+User --> WebEditor : Редакторға өту
+
+Editor --> Server : Өңдеу сұранысы
+Decode --> Server : URL деректерін жіберу
+Theme --> Renderer : Стильді қолдану
+
+Server --> Parser : PlantUML синтаксисін талдау
+Parser --> Renderer : Графикалық көрініс жасау
+
+Renderer --> PNG : PNG форматына экспорт
+Renderer --> SVG : SVG форматына экспорт
+Renderer --> ASCII : ASCII Art форматына экспорт
+
+@enduml

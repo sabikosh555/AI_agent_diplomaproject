@@ -1,0 +1,52 @@
+{% extends 'cabinet/staff/base_staff.html' %}
+{% block title %}Кестеге қосу{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Кестеге қосу</h1>
+    <p class="text-muted small mb-0">Жаңа сабақ енгізу</p>
+</div>
+
+<div class="card border-0 shadow-sm" style="max-width: 500px;">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Күні</label>
+                <select name="day" class="form-select" required>
+                    <option value="1">Дүйсенбі</option>
+                    <option value="2">Сейсенбі</option>
+                    <option value="3">Сәрсенбі</option>
+                    <option value="4">Бейсенбі</option>
+                    <option value="5">Жұма</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="form-label">Басталу</label>
+                    <input type="time" name="time_start" class="form-control" required value="09:00">
+                </div>
+                <div class="col-6 mb-3">
+                    <label class="form-label">Аяқталу</label>
+                    <input type="time" name="time_end" class="form-control" required value="10:30">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Пән</label>
+                <input type="text" name="subject" class="form-control" required placeholder="Мысалы: Математика">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Курс</label>
+                <select name="course" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Қосу</button>
+            <a href="{% url 'cabinet:staff_schedule' %}" class="btn btn-secondary">Болдырмау</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

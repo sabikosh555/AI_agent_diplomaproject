@@ -1,0 +1,44 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% load static %}
+{% block title %}AI Көмекші{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">AI Көмекші</h1>
+    <p class="text-muted small mb-0">Университет туралы кез келген сұрағыңызға жауап беретін виртуалды көмекші</p>
+</div>
+
+<div class="card border-0 shadow-sm cabinet-chat-card">
+    <div class="card-header bg-primary text-white py-3">
+        <h5 class="mb-0">
+            <i class="bi bi-robot me-2"></i>Университет AI Көмекшісі
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        <form class="d-none">{% csrf_token %}</form>
+        <div id="chat-container" class="chat-container chat-container-cabinet" data-chat-url="{% url 'cabinet:chat_api' %}">
+            <div class="chat-message bot-message">
+                <div class="message-avatar">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <div class="message-content">
+                    <strong>AI Көмекші:</strong>
+                    <p class="mb-0">Сәлеметсіз бе! Мен университет қызметі бойынша сіздің көмекшіңізмін. Құжаттар, кесте, процедуралар туралы сұрақтарыңызға жауап бере аламын. Қандай сұрағыңыз бар?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input p-3 bg-white border-top">
+            <div class="input-group">
+                <input type="text" id="user-input" class="form-control" placeholder="Сұрағыңызды жазыңыз..." autocomplete="off">
+                <button class="btn btn-primary" id="send-btn" type="button">
+                    <i class="bi bi-send-fill"></i> Жіберу
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'cabinet/staff/base_staff.html' %}
+{% block title %}Әкімшілік панелі{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Университет әкімшілігі</h1>
+    <p class="text-muted small mb-0">Басты панель</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <a href="{% url 'cabinet:staff_students' %}" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary me-3">
+                        <i class="bi bi-people fs-2"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0">{{ students_count }}</h3>
+                        <span class="text-muted">Студенттер</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6">
+        <a href="{% url 'cabinet:staff_documents' %}" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3">
+                        <i class="bi bi-journal-text fs-2"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0">{{ docs_pending }}</h3>
+                        <span class="text-muted">Қаралудағы құжаттар</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="mt-4">
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Жылдам сілтемелер</h5>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'cabinet:staff_students' %}" class="btn btn-outline-primary">Студенттер тізімі</a>
+                <a href="{% url 'cabinet:staff_documents' %}" class="btn btn-outline-primary">Құжат сұраулары</a>
+                <a href="{% url 'cabinet:staff_grades' %}" class="btn btn-outline-primary">Бағалар</a>
+                <a href="{% url 'cabinet:staff_schedule' %}" class="btn btn-outline-primary">Кесте</a>
+                <a href="{% url 'cabinet:staff_grade_add' %}" class="btn btn-primary">Баға қосу</a>
+                <a href="{% url 'cabinet:staff_schedule_add' %}" class="btn btn-primary">Кестеге қосу</a>
+                <a href="{% url 'cabinet:staff_solutions' %}" class="btn btn-outline-primary">Настройка ИИ</a>
+                <a href="{% url 'cabinet:staff_solution_add' %}" class="btn btn-success">Шешім қосу</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

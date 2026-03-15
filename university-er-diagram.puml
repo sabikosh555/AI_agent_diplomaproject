@@ -1,0 +1,87 @@
+@startuml University_ER
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 12
+skinparam defaultFontName Arial
+skinparam roundCorner 10
+skinparam shadowing false
+
+title **Университеттің қызметі бойынша AI агент**\nДеректер модельі (ER Diagram)
+
+' === СУЩНОСТИ ===
+entity "Пайдаланушы" as User {
+  * id : INTEGER
+  --
+  username : VARCHAR(150)
+  email : VARCHAR(254)
+  first_name : VARCHAR(150)
+  last_name : VARCHAR(150)
+  is_staff : BOOLEAN
+}
+
+entity "Студент профилі" as StudentProfile {
+  * id : INTEGER
+  * user_id : INTEGER <<FK>>
+  --
+  student_id : VARCHAR(20)
+  course : SMALLINT
+  faculty : VARCHAR(100)
+  specialty : VARCHAR(100)
+}
+
+entity "Құжат" as Document {
+  * id : INTEGER
+  * user_id : INTEGER <<FK>>
+  --
+  doc_type : VARCHAR(100)
+  status : VARCHAR(20)
+  created_at : DATETIME
+}
+
+entity "Баға" as Grade {
+  * id : INTEGER
+  * user_id : INTEGER <<FK>>
+  --
+  subject : VARCHAR(100)
+  score : SMALLINT
+  exam_status : VARCHAR(50)
+  status : VARCHAR(20)
+}
+
+entity "Кесте" as Schedule {
+  * id : INTEGER
+  --
+  day : SMALLINT
+  time_start : TIME
+  time_end : TIME
+  subject : VARCHAR(100)
+  course : SMALLINT
+}
+
+entity "Хабарлама" as Notification {
+  * id : INTEGER
+  * user_id : INTEGER <<FK>>
+  --
+  title : VARCHAR(200)
+  message : TEXT
+  created_at : DATETIME
+  is_read : BOOLEAN
+}
+
+' === СВЯЗИ ===
+User ||--|| StudentProfile : "бір пайдаланушы\nбір профиль"
+User ||--o{ Document : "құжат сұраулары"
+User ||--o{ Grade : "бағалар"
+User ||--o{ Notification : "хабарламалар"
+
+StudentProfile .. Schedule : "курс бойынша\nсәйкестендіру"
+
+legend right
+  |= Белгі |= Мағынасы |
+  | * | Біріншілік кілт |
+  | <<FK>> | Сыртқы кілт |
+  | 1:1 | Бір-бірге |
+  | 1:N | Бір-көпке |
+endlegend
+
+@enduml

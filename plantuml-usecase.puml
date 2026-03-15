@@ -1,0 +1,34 @@
+@startuml PlantUML_UseCase
+!theme cerulean
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+
+left to right direction
+
+title PlantUML веб-серверінің пайдалану сценарийлері\n(Use Case Diagram)
+
+actor "Пайдаланушы" as User
+
+rectangle "PlantUML Web Server" <<system boundary>> {
+    usecase "UML диаграммасын құру" as UC1
+    usecase "URL-дан диаграмманы көру" as UC2
+    usecase "Визуалдық теманы таңдау" as UC3
+    usecase "PNG форматына экспорттау" as UC4
+    usecase "SVG форматына экспорттау" as UC5
+    usecase "ASCII Art форматына экспорттау" as UC6
+    usecase "Кеңейтілген редакторды ашу" as UC7
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+
+UC1 ..> UC4 : <<include>>
+UC1 ..> UC5 : <<include>>
+UC1 ..> UC6 : <<include>>
+
+@enduml

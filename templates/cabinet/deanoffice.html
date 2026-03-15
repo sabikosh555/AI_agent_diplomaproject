@@ -1,0 +1,88 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% block title %}Деканат контакттары{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Деканат контакттары</h1>
+    <p class="text-muted small mb-0">Ақпараттық технологиялар факультеті деканатымен байланыс ақпараты</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0"><i class="bi bi-geo-alt me-2"></i>Мекенжай</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">
+                    Алматы қаласы, Абай даңғылы, 8<br>
+                    Негізгі ғимарат, 2 қабат, 205 кабинет
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0"><i class="bi bi-clock me-2"></i>Қабылдау кестесі</h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-1"><strong>Дүйсенбі – жұма:</strong> 09:00 – 18:00</p>
+                <p class="mb-0 text-muted small">Түскі үзіліс: 13:00 – 14:00</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-header bg-light py-3">
+        <h5 class="mb-0"><i class="bi bi-telephone me-2"></i>Байланыс тәсілдері</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary bg-opacity-10 rounded p-2 me-3">
+                        <i class="bi bi-telephone-fill text-primary"></i>
+                    </div>
+                    <div>
+                        <strong>Телефон</strong>
+                        <p class="mb-0">+7 (727) 123-45-67</p>
+                        <small class="text-muted">Деканат қабылдау бөлімі</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary bg-opacity-10 rounded p-2 me-3">
+                        <i class="bi bi-envelope-fill text-primary"></i>
+                    </div>
+                    <div>
+                        <strong>Электрондық пошта</strong>
+                        <p class="mb-0">dekanat@university.kz</p>
+                        <small class="text-muted">Жалпы сұрақтар үшін</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="d-flex align-items-start">
+                    <div class="bg-primary bg-opacity-10 rounded p-2 me-3">
+                        <i class="bi bi-chat-dots-fill text-primary"></i>
+                    </div>
+                    <div>
+                        <strong>AI Көмекші</strong>
+                        <p class="mb-0">Жылдам жауап алу</p>
+                        <a href="{% url 'cabinet:assistant' %}" class="small">Сұрақ қою →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info mt-4 mb-0">
+    <i class="bi bi-info-circle me-2"></i>
+    <strong>Кеңес:</strong> Құжат сұрауларын жеке кабинеттегі «Құжаттар» бөлімі арқылы жіберуге болады. 
+    Жалпы сұрақтар бойынша AI көмекшіге хабарласыңыз — ол көптеген сұрақтарға жауап бере алады.
+</div>
+{% endblock %}

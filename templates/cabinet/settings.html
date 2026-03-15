@@ -1,0 +1,61 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% block title %}Баптаулар{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Баптаулар</h1>
+    <p class="text-muted small mb-0">Жеке деректер мен параметрлер</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-semibold">Жеке деректер</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Аты-жөні</label>
+                            <input type="text" class="form-control" name="full_name" value="{{ user.get_full_name }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Электрондық пошта</label>
+                            <input type="email" class="form-control" name="email" value="{{ user.email }}">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Сақтау</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-semibold">Құпия сөзді өзгерту</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Ағымдағы құпия сөз</label>
+                        <input type="password" class="form-control" name="old_password" placeholder="••••••••">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Жаңа құпия сөз</label>
+                        <input type="password" class="form-control" name="new_password" placeholder="••••••••">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Жаңа құпия сөзді қайталаңыз</label>
+                        <input type="password" class="form-control" name="new_password2" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Құпия сөзді өзгерту</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

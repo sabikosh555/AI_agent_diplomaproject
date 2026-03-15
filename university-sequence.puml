@@ -1,0 +1,48 @@
+@startuml University_Sequence
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 12
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+
+title **AI көмекшімен сөйлесу** — тізбектік диаграмма (Sequence Diagram)
+
+actor Студент as User
+participant "Клиент\n(chat.js)" as Client
+participant "Chat API\n(cabinet/views)" as API
+participant "AI қызметі" as AI
+participant "OpenAI API" as OpenAI
+
+== Хабарлама жіберу ==
+User -> Client : Хабарламаны енгізу және жіберу
+activate Client
+
+Client -> API : POST /cabinet/api/chat/\n{ "message": "текст" }
+activate API
+
+== Жауап алу ==
+alt [OPENAI_API_KEY орнатылған]
+    API -> AI : get_openai_response(message)
+    activate AI
+    AI -> OpenAI : GPT-4o-mini сұранысы
+    OpenAI --> AI : JSON жауап
+    AI --> API : жауап мәтіні
+    deactivate AI
+else [API кілті жоқ]
+    API -> AI : get_local_ai_response(message)
+    activate AI
+    note right of AI
+      Кілт сөздер: кесте, құжат,
+      баға, емтихан, деканат
+    end note
+    AI --> API : алдын алы анықталған жауап
+    deactivate AI
+end
+
+API --> Client : { "response": "жауап" }
+deactivate API
+
+Client --> User : Жауапты чатта көрсету
+deactivate Client
+
+@enduml

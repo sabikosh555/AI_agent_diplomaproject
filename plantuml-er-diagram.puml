@@ -1,0 +1,50 @@
+@startuml PlantUML_ER
+!theme cerulean
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+
+title PlantUML веб-серверінің деректер модельі\n(Entity-Relationship Diagram)
+
+entity "Диаграмма" as Diagram {
+  * id : INT <<PK>>
+  --
+  код : TEXT
+  құрылған_уақыты : DATETIME
+  өзгертілген_уақыты : DATETIME
+  атауы : VARCHAR(255)
+}
+
+entity "Диаграмма түрі" as DiagramType {
+  * id : INT <<PK>>
+  --
+  атауы : VARCHAR(50)
+  сипаттамасы : TEXT
+}
+
+entity "Экспорт форматы" as ExportFormat {
+  * id : INT <<PK>>
+  --
+  форматы : VARCHAR(20)
+  кеңейту : VARCHAR(10)
+}
+
+entity "Тема" as Theme {
+  * id : INT <<PK>>
+  --
+  атауы : VARCHAR(50)
+  стиль_коды : VARCHAR(100)
+}
+
+entity "Пайдаланушы" as User {
+  * id : INT <<PK>>
+  --
+  email : VARCHAR(255)
+  құрылған_уақыты : DATETIME
+}
+
+Diagram }o--|| DiagramType : "типі"
+Diagram }o--o| ExportFormat : "экспортталады"
+Diagram }o--o| Theme : "қолданады"
+Diagram }o--o| User : "жасаған"
+
+@enduml

@@ -1,0 +1,147 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% block title %}Құжаттар{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Құжаттар</h1>
+    <p class="text-muted small mb-0">Сұралған құжаттар мен өтінімдер</p>
+</div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %} alert-dismissible fade show">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="border-0 py-3">Құжат түрі</th>
+                        <th class="border-0 py-3">Күні</th>
+                        <th class="border-0 py-3">Мәртебе</th>
+                        <th class="border-0 py-3"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doc in documents %}
+                    <tr>
+                        <td><i class="bi bi-file-earmark-text text-primary me-2"></i>{{ doc.doc_type }}</td>
+                        <td>{{ doc.created_at|date:"d.m.Y" }}</td>
+                        <td>
+                            {% if doc.status == 'ready' %}
+                            <span class="badge bg-success">Дайын</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark">Қаралуда</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if doc.status == 'ready' %}
+                            <a href="#" class="btn btn-sm btn-outline-primary">Жүктеу</a>
+                            {% else %}
+                            —
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">Құжаттар жоқ</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#documentModal">
+        <i class="bi bi-plus-lg me-2"></i>Жаңа құжат сұрау
+    </button>
+</div>
+
+<!-- Модал форма -->
+<div class="modal fade" id="documentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="{% url 'cabinet:document_create' %}" id="documentForm">
+                {% csrf_token %}
+                <input type="hidden" name="doc_type" id="docTypeValue" value="">
+                <div class="modal-header">
+                    <h5 class="modal-title">Жаңа құжат сұрау</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Құжат түрі</label>
+                        <select id="docTypeSelect" class="form-select">
+                            <option value="">Таңдаңыз...</option>
+                            <option value="Оқу справкасы">Оқу справкасы</option>
+                            <option value="Студенттік куәландыру">Студенттік куәландыру</option>
+                            <option value="Өтінім">Өтінім</option>
+                            <option value="Академиялық справка">Академиялық справка</option>
+                            <option value="Курстану справкасы">Курстану справкасы</option>
+                            <option value="Транскрипт">Транскрипт</option>
+                            <option value="Кеңесу справкасы">Кеңесу справкасы</option>
+                            <option value="__other__">Басқа (өзіңіз енгізіңіз)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 d-none" id="docTypeCustomWrap">
+                        <label class="form-label">Құжат түрін енгізіңіз</label>
+                        <input type="text" id="docTypeCustom" class="form-control" placeholder="Мысалы: Ата-ана справкасы">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Болдырмау</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send me-1"></i>Жіберу
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.getElementById('docTypeSelect');
+    const customWrap = document.getElementById('docTypeCustomWrap');
+    const customInput = document.getElementById('docTypeCustom');
+    const hiddenInput = document.getElementById('docTypeValue');
+    const form = document.getElementById('documentForm');
+
+    select.addEventListener('change', function() {
+        if (this.value === '__other__') {
+            customWrap.classList.remove('d-none');
+            customInput.required = true;
+        } else {
+            customWrap.classList.add('d-none');
+            customInput.required = false;
+            customInput.value = '';
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        if (select.value === '__other__') {
+            const val = customInput.value.trim();
+            if (!val) {
+                e.preventDefault();
+                customInput.focus();
+                return;
+            }
+            hiddenInput.value = val;
+        } else if (select.value) {
+            hiddenInput.value = select.value;
+        } else {
+            e.preventDefault();
+            select.focus();
+        }
+    });
+});
+</script>
+{% endblock %}

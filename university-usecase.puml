@@ -1,0 +1,61 @@
+@startuml University_UseCase
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 12
+skinparam defaultFontName Arial
+skinparam roundCorner 10
+
+title **Университеттің қызметі бойынша AI агент**\nПайдалану сценарийлері (Use Case Diagram)
+
+top to bottom direction
+
+actor "Студент" as Student
+actor "Қызметкер" as Staff
+
+rectangle "AI University жүйесі" as System {
+
+  ' === Студенттік функциялар ===
+  usecase (Жеке кабинетті көру) as UC1
+  usecase (Құжат сұрауын жіберу) as UC2
+  usecase (Кестені көру) as UC3
+  usecase (Бағаларды көру) as UC4
+  usecase (AI көмекшімен сөйлесу) as UC5
+  usecase (Хабарламаларды көру) as UC6
+
+  ' === Қызметкер функциялары ===
+  usecase (Құжат мәртебесін өзгерту) as UC7
+  usecase (Баға қосу) as UC8
+  usecase (Кестеге жазба қосу) as UC9
+
+  ' === Ортақ ===
+  usecase (Кіру) as UC_Login
+  usecase (Тіркелу) as UC_Register
+}
+
+' Студент байланыстары
+Student --> UC_Login
+Student --> UC_Register
+Student --> UC1
+Student --> UC2
+Student --> UC3
+Student --> UC4
+Student --> UC5
+Student --> UC6
+
+' Қызметкер байланыстары
+Staff --> UC_Login
+Staff --> UC1
+Staff --> UC7
+Staff --> UC8
+Staff --> UC9
+
+' Include/Extend
+UC2 ..> UC1 : <<include>>
+UC7 ..> UC2 : <<extend>>
+
+legend bottom
+  |= Студент |= Қызметкер |
+  | Жеке кабинет, құжат, кесте, баға, AI чат | Құжат/баға/кесте басқару |
+endlegend
+
+@enduml

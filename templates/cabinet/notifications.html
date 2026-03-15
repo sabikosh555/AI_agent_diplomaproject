@@ -1,0 +1,27 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% block title %}Хабарламалар{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Хабарламалар</h1>
+    <p class="text-muted small mb-0">Жүйелік хабарламалар мен ескертулер</p>
+</div>
+
+<div class="list-group">
+    {% for n in notifications %}
+    <div class="list-group-item list-group-item-action border-0 border-bottom py-3">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h6 class="mb-1">{{ n.title }}</h6>
+                <p class="mb-0 text-muted small">{{ n.message }}</p>
+            </div>
+            <small class="text-muted">{{ n.created_at|date:"d.m.Y, H:i" }}</small>
+        </div>
+    </div>
+    {% empty %}
+    <div class="list-group-item border-0 py-4 text-center text-muted">
+        Хабарламалар жоқ
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

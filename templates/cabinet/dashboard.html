@@ -1,0 +1,102 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% block title %}Басты панель{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Басты панель</h1>
+    <p class="text-muted small mb-0">Жеке кабинетіңізге қош келдіңіз</p>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card card border-0 h-100">
+            <div class="card-body d-flex align-items-center">
+                <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+                <div class="ms-3">
+                    <h3 class="fw-bold mb-0">{{ documents_count }}</h3>
+                    <small class="text-muted">Құжаттар</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card card border-0 h-100">
+            <div class="card-body d-flex align-items-center">
+                <div class="stat-icon bg-success bg-opacity-10 text-success">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+                <div class="ms-3">
+                    <h3 class="fw-bold mb-0">{{ notifications_count }}</h3>
+                    <small class="text-muted">Хабарламалар</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <div class="stat-card card border-0 h-100">
+            <div class="card-body d-flex align-items-center">
+                <div class="stat-icon bg-info bg-opacity-10 text-info">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="ms-3">
+                    <h3 class="fw-bold mb-0">{{ grades_count }}</h3>
+                    <small class="text-muted">Бағалар</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-semibold">Жылдам әрекеттер</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'cabinet:assistant' %}" class="btn btn-outline-primary d-flex align-items-center py-3">
+                        <i class="bi bi-robot fs-4 me-3"></i>
+                        <div class="text-start">
+                            <strong>AI Көмекшімен сөйлесу</strong>
+                            <br><small class="text-muted">Сұрақтарыңызға жауап алыңыз</small>
+                        </div>
+                    </a>
+                    <a href="{% url 'cabinet:documents' %}" class="btn btn-outline-secondary d-flex align-items-center py-3">
+                        <i class="bi bi-file-earmark-plus fs-4 me-3"></i>
+                        <div class="text-start">
+                            <strong>Құжат сұрау</strong>
+                            <br><small class="text-muted">Справка немесе өтінім</small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="mb-0 fw-semibold">Соңғы белсенділік</h5>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between border-0 py-3">
+                        <span><i class="bi bi-chat text-primary me-2"></i>AI көмекшіге сұрақ қойылды</span>
+                        <small class="text-muted">Бүгін</small>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between border-0 py-3">
+                        <span><i class="bi bi-file-earmark text-primary me-2"></i>Справка сұралды</span>
+                        <small class="text-muted">Кеше</small>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between border-0 py-3">
+                        <span><i class="bi bi-box-arrow-in-right text-primary me-2"></i>Жүйеге кірді</span>
+                        <small class="text-muted">2 күн бұрын</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

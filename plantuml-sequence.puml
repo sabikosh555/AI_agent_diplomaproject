@@ -1,0 +1,37 @@
+@startuml PlantUML_Sequence
+!theme cerulean
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+
+title PlantUML веб-серверінде диаграмма құру процесі\n(Sequence Diagram)
+
+actor "Пайдаланушы" as User
+participant "Код редакторы" as Editor
+participant "PlantUML\nсервері" as Server
+participant "Синтаксис\nпарсері" as Parser
+participant "Рендерер" as Renderer
+participant "Экспорт\nмодулі" as Export
+
+User -> Editor : UML диаграмма кодын енгізу\n(@startuml ... @enduml)
+User -> Editor : Өңдеу сұранысын жіберу
+
+Editor -> Server : PlantUML кодын өңдеу сұранысы
+
+activate Server
+Server -> Parser : Синтаксисті талдау
+activate Parser
+Parser --> Server : Абстрактты синтаксис ағашы (AST)
+deactivate Parser
+
+Server -> Renderer : Графикалық көрініс жасау
+activate Renderer
+Renderer --> Server : Векторлық/растрлық деректер
+deactivate Renderer
+deactivate Server
+
+Server -> Export : Формат таңдау (PNG/SVG/ASCII)
+activate Export
+Export --> User : Диаграмма файлын жүктеу
+deactivate Export
+
+@enduml

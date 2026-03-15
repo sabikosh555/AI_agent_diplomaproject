@@ -1,0 +1,60 @@
+@startuml University_Component
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontSize 12
+skinparam defaultFontName Arial
+skinparam roundCorner 10
+
+title **Университеттің қызметі бойынша AI агент**\nКомпоненттік диаграмма (Component Diagram)
+
+package "AI University" {
+
+  package "main" {
+    [Бас бет] as Main
+  }
+
+  package "cabinet" {
+    [Аутентификация] as Auth
+    [Жеке кабинет] as Cabinet
+    [AI көмекші] as Assistant
+    [Chat API] as ChatAPI
+    [Қызметкер панелі] as StaffPanel
+  }
+
+  package "AI қызметі" {
+    [OpenAI интеграциясы] as OpenAI
+    [Локальді кілт сөздер] as LocalAI
+  }
+
+  database "Дерекқор" {
+    [User, StudentProfile\nDocument, Grade\nSchedule, Notification] as DB
+  }
+}
+
+cloud "Сыртқы" {
+  [OpenAI GPT-4o-mini] as ExtAPI
+}
+
+' Актёрлар
+actor Студент as Student
+actor Қызметкер as Staff
+
+' === Байланыстар ===
+Student --> Main
+Student --> Auth
+Student --> Cabinet
+Student --> Assistant
+Staff --> Auth
+Staff --> StaffPanel
+
+Assistant --> ChatAPI : JSON
+ChatAPI --> OpenAI : message
+ChatAPI --> LocalAI : message
+OpenAI --> ExtAPI : HTTP
+
+Auth --> DB : аутентификация
+Cabinet --> DB : CRUD
+StaffPanel --> DB : CRUD
+ChatAPI --> DB : контекст алу
+
+@enduml

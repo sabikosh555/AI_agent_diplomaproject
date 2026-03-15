@@ -1,0 +1,72 @@
+{% extends 'cabinet/staff/base_staff.html' %}
+{% block title %}Настройка ИИ{% endblock %}
+
+{% block content %}
+<div class="content-header py-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+        <h1 class="h4 fw-bold mb-1">Настройка ИИ</h1>
+        <p class="text-muted small mb-0">AI көмекші студенттердің сұрақтарына жауап беруде осы шешімдерді пайдаланады</p>
+    </div>
+    <a href="{% url 'cabinet:staff_solution_add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Шешім қосу
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        {% if solutions %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="border-0 py-3" style="width: 50px;">Рет</th>
+                        <th class="border-0 py-3">Тақырып</th>
+                        <th class="border-0 py-3">Кілт сөздер</th>
+                        <th class="border-0 py-3">Мәртебе</th>
+                        <th class="border-0 py-3">Әрекет</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in solutions %}
+                    <tr class="{% if not s.is_active %}table-secondary{% endif %}">
+                        <td>{{ s.order }}</td>
+                        <td>
+                            <strong>{{ s.topic }}</strong>
+                            <div class="small text-muted mt-1" style="max-width: 300px;">{{ s.solution|truncatewords:15 }}</div>
+                        </td>
+                        <td><code class="small">{{ s.keywords|default:"—" }}</code></td>
+                        <td>
+                            {% if s.is_active %}
+                            <span class="badge bg-success">Белсенді</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Өшірілген</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'cabinet:staff_solution_edit' s.pk %}" class="btn btn-sm btn-outline-primary">Өзгерту</a>
+                            <form method="post" action="{% url 'cabinet:staff_solution_delete' s.pk %}" class="d-inline" onsubmit="return confirm('Шешімді өшіргіңіз келе ме?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Өшіру</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-lightbulb display-4 d-block mb-3"></i>
+            <p class="mb-3">Әзірше шешімдер жоқ. Студенттердің жиі сұрайтын мәселелерін қосыңыз — AI көмекші оларды пайдаланады.</p>
+            <a href="{% url 'cabinet:staff_solution_add' %}" class="btn btn-primary">Бірінші шешімді қосу</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="alert alert-info mt-4 mb-0">
+    <i class="bi bi-info-circle me-2"></i>
+    <strong>Қалай жұмыс істейді:</strong> Студент AI көмекшіге сұрақ қойғанда, осы шешімдер контекст ретінде OpenAI-ға жіберіледі. 
+    Кілт сөздер сәйкес келсе, AI осы ақпаратты негізге алады. OpenAI жоқ кезде кілт сөздер бойынша тікелей жауап беріледі.
+</div>
+{% endblock %}

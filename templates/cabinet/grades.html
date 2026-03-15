@@ -1,0 +1,55 @@
+{% extends 'cabinet/base_cabinet.html' %}
+{% block title %}Бағалар{% endblock %}
+
+{% block content %}
+<div class="content-header py-4">
+    <h1 class="h4 fw-bold mb-1">Бағалар</h1>
+    <p class="text-muted small mb-0">2025–2026 оқу жылы, 6 семестр</p>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="border-0 py-3">Пән</th>
+                        <th class="border-0 py-3">Орта баға</th>
+                        <th class="border-0 py-3">Емтихан</th>
+                        <th class="border-0 py-3">Мәртебе</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for g in grades %}
+                    <tr>
+                        <td>{{ g.subject }}</td>
+                        <td><strong>{{ g.score|default:"—" }}</strong></td>
+                        <td>{{ g.exam_status|default:"—" }}</td>
+                        <td><span class="badge bg-{% if g.status == 'Өтті' %}success{% else %}warning text-dark{% endif %}">{{ g.status }}</span></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">Бағалар жоқ</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% if grades %}
+<div class="mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card border-0 bg-primary bg-opacity-10">
+                <div class="card-body text-center py-4">
+                    <h3 class="fw-bold text-primary mb-0">85</h3>
+                    <small class="text-muted">Орташа GPA</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

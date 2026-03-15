@@ -1,0 +1,42 @@
+{% extends 'cabinet/staff/base_staff.html' %}
+{% block title %}Студенттер{% endblock %}
+
+{% block content %}
+<div class="content-header py-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="h4 fw-bold mb-1">Студенттер</h1>
+        <p class="text-muted small mb-0">Тіркелген студенттер тізімі</p>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="border-0 py-3">ID</th>
+                        <th class="border-0 py-3">Аты-жөні</th>
+                        <th class="border-0 py-3">Пошта</th>
+                        <th class="border-0 py-3">Курс</th>
+                        <th class="border-0 py-3">Мамандық</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in students %}
+                    <tr>
+                        <td>{% if s.student_profile %}{{ s.student_profile.student_id }}{% else %}—{% endif %}</td>
+                        <td>{{ s.get_full_name|default:s.username }}</td>
+                        <td>{{ s.email|default:"—" }}</td>
+                        <td>{% if s.student_profile %}{{ s.student_profile.course }}{% else %}—{% endif %}</td>
+                        <td>{% if s.student_profile %}{{ s.student_profile.specialty }}{% else %}—{% endif %}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" class="text-center text-muted py-4">Студенттер жоқ</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
