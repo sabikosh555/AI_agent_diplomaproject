@@ -83,5 +83,5 @@ LOGIN_URL = 'cabinet:login'
 LOGIN_REDIRECT_URL = 'cabinet:assistant'
 LOGOUT_REDIRECT_URL = 'main:index'
 
-# OpenAI API (сіз өзіңіз көрсетіңіз / укажите сами)
+# OpenAI API (сіз өзіңніңкі)
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')

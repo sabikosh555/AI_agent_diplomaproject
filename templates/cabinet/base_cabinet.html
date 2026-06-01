@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Жеке кабинет{% endblock %} | AI Университет</title>
+    <title>{% block title %}Жеке кабинет{% endblock %} | AI агент</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="{% url 'main:index' %}">
-                <i class="bi bi-robot me-2"></i>AI Университет
+                <i class="bi bi-robot me-2"></i>AI Агент
             </a>
             <div class="navbar-nav ms-auto align-items-center">
                 <span class="text-white-50 me-3 d-none d-md-inline">Сәлеметсіз бе, <strong>{{ user.get_full_name|default:user.username }}</strong></span>
